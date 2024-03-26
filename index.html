@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leitura Cantada</title>
+</head>
+<body>
+
+<h1>Leitura Cantada</h1>
+
+<textarea id="texto" rows="4" cols="50">Cole seu texto aqui...</textarea><br>
+<button onclick="lerComMelodia()">Ler com Melodia</button>
+
+<audio id="melodia" src="melodia.mp3" loop></audio>
+
+<script>
+function lerComMelodia() {
+    var texto = document.getElementById("texto").value;
+    var melodia = document.getElementById("melodia");
+
+    // Iniciar a reprodução da melodia
+    melodia.play();
+
+    // Sintetizar voz com a API Web Speech
+    var speech = new SpeechSynthesisUtterance(texto);
+    speech.voice = speechSynthesis.getVoices()[0]; // Escolha a voz desejada (se necessário)
+    speechSynthesis.speak(speech);
+
+    // Parar a reprodução da melodia quando a fala terminar
+    speech.onend = function() {
+        melodia.pause();
+    };
+}
+</script>
+
+</body>
+</html>
